@@ -27,9 +27,9 @@
 		#message label { width: 20%; }
 		#message div { width: 80%; }
 		#body { height: 20em; }
-		nav { text-align: center; }
-		nav button { width: 128px; height: 64px; margin: 0 32px; font-size: 32px; background: white; color: black; border: none; }
-		nav button:hover { background:black; color: white; }
+		.nav { text-align: center; }
+		.nav button { width: 128px; height: 64px; margin: 0 32px; font-size: 32px; background: white; color: black; border: none; }
+		.nav button:hover { background:black; color: white; }
 	</style>
 </head>
 <body>
@@ -38,10 +38,10 @@
 	<label>TO</label><div id='to'></div>
 	<label>MESSAGE</label><div id='body'></div>
 </div>
-<nav>
+<div class="nav">
 	<button id='prev'><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 	<button id='next'><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-</nav>
+</div>
 <script   src="https://code.jquery.com/jquery-3.0.0.slim.min.js"   integrity="sha256-Rf4BadfyCtsvHmO89BUZcbYvNNvZvOT08ALfEzvCsD0="   crossorigin="anonymous"></script>
 <script type="text/javascript">
 	var messageN = 0;
@@ -50,7 +50,6 @@
 			to: "Thweek",
 			body: "Yes it`s a risky business. I`m amazed Trex managed to get away with that droid technician Sivor without causing the whole thing to fall down on our heads. You never know with kriffing bugs, with their clades and castes and such. Annoy the one on top and you lose every other link in the chain. Start from scratch. I thought this whole deal was going to fall through when we lost the support of Duke Piddock, but Dimmock - he might be the bug for us."
 		},
-		
 		{
 			to: "Thweek",
 			body: "Decapitated! Ha! Well, make sure he never gets to hear about that! I mean, don`t get me wrong, the bugs are kriffing hypocrites on the issue if you ask me. They`re more than happy to see dozens of drones squandered in their own games, but if he knew what happened with Sivor, it`d be all over for the deal. Hah, putting a techgeek in the ring against you! What a way to go."
@@ -64,10 +63,12 @@
 	var teletype = function(element, text, callback, len) {
 		len = len || 1;
 		element.text(text.substr(0, len));
-		if (text.length > len)
-			setTimeout(() => teletype(element, text, callback, len + 1), 5);
-		else if (callback)
+		if (text.length > len) {
+			setTimeout(function () { teletype(element, text, callback, len + 1); }, 5);
+		}
+		else if (callback) {
 			callback();
+		}
 	};
 
 	$('#countMax').text(messages.length);
@@ -81,15 +82,17 @@
 
 	$('#next').on('click', function () {
 		messageN++;
-		if (messageN >= messages.length)
+		if (messageN >= messages.length) {
 			messageN = messages.length - 1;
+		}
 		show();
 	});
 
 	$('#prev').on('click', function () {
 		messageN--;
-		if (messageN < 0)
+		if (messageN < 0) {
 			messageN = 0;
+		}
 		show();
 	});
 </script>
